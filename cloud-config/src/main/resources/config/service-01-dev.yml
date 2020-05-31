@@ -1,0 +1,36 @@
+# 配置的优先级
+# 一丶配置类型
+#   1.env(环境变量,命令行参数)
+#   2.remote-config(本文件的配置)
+#   3.local-config(本地配置)
+
+# 二丶优先级
+#   首先env是可以覆盖local-config的
+#   其他优先级根据org.springframework.cloud.bootstrap.config.PropertySourceBootstrapProperties来定
+#   1.allowOverride
+#     1)设置为true,另外两个配置才起效,否则remote-config优先级最高,不能被覆盖
+#     2)此配置在local中无效,必须配置在remote-config
+#     3)默认为true
+#   2.overrideSystemProperties
+#     在allowOverride=true的情况下
+#       1)overrideSystemProperties=true,env中的配置会被remote-config中的配置覆盖(env的配置优先级最高)
+#       2)overrideSystemProperties=false,remote-config中的配置会被env中的配置覆盖
+#       3)默认为true,env可覆盖remote-config
+#   3.overrideNone
+#     在allowOverride=true的情况下
+#       1)overrideNone=true,remote-config优先级最低
+#       2)overrideNone=false,local-config不能覆盖remote-config
+#       3)默认为false
+
+################################################################################################
+# allowOverride  #  overrideSystemProperties  #  overrideNone  #       result                 ##
+#      true      #         true               #     false      # 默认(remote > env > local)   ##
+#      true      #         false              #     false      #    env > remote > local      ##
+################################################################################################
+greetings: remote-config-greetings
+spring:
+  cloud:
+    config:
+      allow-override: true
+      override-none: false
+      override-system-properties: false

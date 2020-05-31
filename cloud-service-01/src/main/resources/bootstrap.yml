@@ -1,0 +1,29 @@
+greetings: local-config-greetings
+server:
+  port: 9001
+spring:
+  application:
+    name: service-01
+  profiles:
+    active: dev
+  cloud:
+    config:
+      fail-fast: true
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        service-id: config-server
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://wjq:wjq@peer1:8761/eureka/,http://wjq:wjq@peer2:8762/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream,info,health,env
+

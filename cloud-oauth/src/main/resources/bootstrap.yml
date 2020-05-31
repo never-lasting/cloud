@@ -1,0 +1,21 @@
+server:
+  port: 6666
+spring:
+  application:
+    name: oauth
+  profiles:
+    active: dev
+  cloud:
+    config:
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        service-id: config-server
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
+  client:
+    service-url:
+      defaultZone: http://wjq:wjq@peer1:8761/eureka/,http://wjq:wjq@peer2:8762/eureka/

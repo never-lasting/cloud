@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.100.111:3306/cloud?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
+    druid:
+      initial-size: 10
+      min-idle: 5
+      max-active: 20
+      # milliseconds
+      max-wait: 60000
+      validation-query: SELEC 1 FROM DUAL
+      test-while-idle: true
+  redis:
+    database: 0
+    host: 192.168.100.111
+    password: wjqisagoodman
+    port: 6379
+    timeout: 1000ms
+    lettuce:
+      pool:
+        max-active:  20 # 连接池最大连接数（使用负值表示没有限制）
+        max-idle: 10 # 连接池中的最大空闲连接
+        min-idle: 5 # 连接池中的最小空闲连接
+        max-wait: 6000ms # 连接池最大阻塞等待时间（使用负值表示没有限制）
