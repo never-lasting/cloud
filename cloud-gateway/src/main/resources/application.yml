@@ -8,11 +8,7 @@ spring:
       discovery:
         locator:
           enabled: true
-      routes:
-      - id: service-02
-        uri: lb://service-02
-        predicates:
-        - Path=/service-02/**
+          lower-case-service-id: true
 eureka:
   instance:
     prefer-ip-address: true
